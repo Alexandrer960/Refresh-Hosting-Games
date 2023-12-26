@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Container Control</title>
+</head>
+<body>
+    <h1>Container Control</h1>
+
+    <h2>Active Containers</h2>
+    <ul>
+        {% for container in containers %}
+            <li>{{ container.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Control Containers</h2>
+    <form action="/container_control" method="POST">
+        <label for="container_id">Container ID:</label>
+        <input type="text" name="container_id" id="container_id">
+        <br><br>
+        <label for="action">Action:</label>
+        <select name="action" id="action">
+            <option value="start">Start</option>
+            <option value="stop">Stop</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Perform Action">
+    </form>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Server Management</title>
+</head>
+<body>
+    <h1>Game Server Management</h1>
+
+    <h2>Start a Game Server</h2>
+    <form action="/start_server" method="POST">
+        <label for="game">Select Game:</label>
+        <select name="game" id="game">
+            <option value="minecraft">Minecraft</option>
+            <option value="ark">ARK: Survival Evolved</option>
+            <option value="rust">Rust</option>
+        </select>
+        <br><br>
+        <label for="port">Server Port:</label>
+        <input type="text" name="port" id="port">
+        <br><br>
+        <label for="ram">RAM:</label>
+        <select name="ram" id="ram">
+            <option value="1g">1GB</option>
+            <option value="2g">2GB</option>
+            <option value="4g">4GB</option>
+        </select>
+        <br><br>
+        <label for="image_size">Image Size:</label>
+        <select name="image_size" id="image_size">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Start Server">
+    </form>
+
+    <h2>Active Game Servers</h2>
+    <ul>
+        {% for container in containers %}
+            <li>{{ container.name }}:</li>
+            <p>{{ container.id }}</p>
+        {% endfor %}
+    </ul>
+
+    <h1>Container Information</h1>
+    <table>
+        <tr>
+            <th>Container ID</th>
+            <th>IP Address</th>
+            <th>Ports</th>
+        </tr>
+        {% for container in container_info %}
+        <tr>
+            <td>{{ container.id }}</td>
+            <td>{{ container.ip_address }}</td>
+            <td>
+                {% for port in container.ports %}
+                <p>Container Port: {{ port.container_port }}, Host Port: {{ port.host_port }}</p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Delete a Game Server</h2>
+    <form action="/stop_server" method="POST">
+        <label for="container_id">Container ID:</label>
+        <input type="text" name="container_id" id="container_id">
+        <br><br>
+        <input type="submit" value="Stop Server">
+    </form>
+</body>
+</html>
